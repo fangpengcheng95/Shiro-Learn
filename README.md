@@ -7,4 +7,4 @@
 - Shiro-HelloWorld
 - Shiro integrating Spring
 - How to config the protected URLs
-- Shiro Authentication
+- Shiro Authentication/add Mybatis and implements Realm
