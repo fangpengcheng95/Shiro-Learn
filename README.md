@@ -6,3 +6,4 @@
 ### Directory
 - Shiro-HelloWorld
 - Shiro integrating Spring
+- How to config the protected URLs
