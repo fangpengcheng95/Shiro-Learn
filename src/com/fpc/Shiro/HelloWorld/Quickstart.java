@@ -20,7 +20,6 @@ public class Quickstart {
 
     private static final transient Logger log = LoggerFactory.getLogger(Quickstart.class);
 
-
     public static void main(String[] args) {
 
         // The easiest way to create a Shiro SecurityManager with configured
