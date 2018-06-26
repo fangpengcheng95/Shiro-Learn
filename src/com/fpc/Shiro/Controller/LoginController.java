@@ -21,9 +21,6 @@ import com.fpc.Service.IUserService;
 @RequestMapping("/Shiro")
 public class LoginController {
 	
-	@Resource
-	private IUserService userService;
-	
 	@RequestMapping("/login")
 	public String login( @RequestParam("username") String username , @RequestParam("password") String password ){
 		Subject currentUser = SecurityUtils.getSubject();
@@ -31,28 +28,34 @@ public class LoginController {
 		if ( !currentUser.isAuthenticated() ){
 			//把用户名和密码封装成UsernamePasswordToken
 			UsernamePasswordToken token = new UsernamePasswordToken(username,password);
-			token.setRememberMe(true);
-			User user = userService.getUserByName(username);
-			System.out.println(user.getPassword());
+			token.setRememberMe(false);
 			try{
 				currentUser.login(token);
 			} catch (UnknownAccountException ue) {
 				// TODO: handle exception
 				//用户名错误
-				//return "login";
+				return "login";
 			} catch (IncorrectCredentialsException ie) {
 				// TODO: handle exception
 				//密码错误
+				return "login";
 			} catch (LockedAccountException le) {
 				// TODO: handle exception
 				//账户被锁定
 			}
 			catch ( AuthenticationException aException ) {
 				//所有异常的父类
+				return "login";
 			}
-			
 		}
 		//登录成功
 		return "redirect:/user.jsp";
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(){
+		Subject currentuser = SecurityUtils.getSubject();
+		currentuser.logout();
+		return "login";
 	}
 }

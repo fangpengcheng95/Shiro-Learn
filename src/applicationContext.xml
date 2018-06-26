@@ -63,8 +63,8 @@
     <bean id="jdbcRealm" class="com.fpc.Shiro.Realms.ShiroRealm">
     	<property name="credentialsMatcher">
     		<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-    			<property name="hashAlgorithmName" value="MD5"></property>
-    			<property name="hashIterations" value="1024"></property>
+    			<property name="hashAlgorithmName" value="MD5"></property> <!-- 加密算法名称 -->
+    			<property name="hashIterations" value="1024"></property><!-- 加密的次数 -->
     		</bean>
     	</property>
     </bean>
@@ -140,11 +140,6 @@
             <value>
                 /login.jsp = anon
                 /Shiro/login = anon
-                /shiro/logout = logout
-                
-                /user.jsp = anon
-                /admin.jsp = roles[admin]
-                
                 # everything else requires authentication:
                 /** = authc
             </value>
