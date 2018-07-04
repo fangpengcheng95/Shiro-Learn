@@ -11,6 +11,12 @@
 	<shiro:user>
 		welcome[<shiro:principal/>]login,<a href="Shiro/logout">logout</a>
 	</shiro:user>
-	
+	<form action="Shiro/get_message" method="POST">
+		phonenumber: <input type="text" name="mobileNumber"/>
+		<br>
+		code: <input type="text" name="password" value="${code}"/>
+		<br>
+	    <input type="submit" value="get code">
+	</form>
 </body>
 </html>
