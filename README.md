@@ -9,3 +9,4 @@
 - How to config the protected URLs
 - Shiro Authentication/add Mybatis and implements Realm
 - Shiro Login and Logout using MD5
+- Redis implements Message Queue
