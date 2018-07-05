@@ -10,3 +10,4 @@
 - Shiro Authentication/add Mybatis and implements Realm
 - Shiro Login and Logout using MD5
 - Redis implements Message Queue
+- Spring Transaction
