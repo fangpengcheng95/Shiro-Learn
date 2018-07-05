@@ -3,6 +3,9 @@ package com.fpc.UnitTest;
 import org.apache.catalina.core.ApplicationContext;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.apple.eawt.Application;
 import com.fpc.Service.IAccountService;

@@ -2,18 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"  
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
     xmlns:context="http://www.springframework.org/schema/context"  
-    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"  
     xsi:schemaLocation="http://www.springframework.org/schema/beans    
-                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd    
                         http://www.springframework.org/schema/context    
-                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
-                        http://www.springframework.org/schema/mvc    
-                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+                        http://www.springframework.org/schema/context/spring-context-4.0.xsd    
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd
+                        http://www.springframework.org/schema/aop
+        				http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
     <!-- =========================================================
          Shiro Core Components - Not Spring Specific
          ========================================================= -->
     <!-- Shiro's main business-tier object for web-enabled applications
          (use DefaultSecurityManager instead when there is no web environment)-->
+    <context:component-scan base-package="com.fpc"></context:component-scan>
     <!--  
     1. 配置 SecurityManager!
     -->     
@@ -181,13 +188,32 @@
   	<property name="dataSource" ref="dataSource"></property>
   	</bean>
   	
+  	<!-- 事务详情 ：在AOP筛选基础上，比如对ABC三个确定使用什么样的事物，例如AC读写，B只读等
+  		<tx:attributes>用于配置事物详情（属性）
+  		<tx:method name=""/>详情具体配置
+  		propagation:传播行为，REQUIRED：必须，REQUIRED_NEW：必须是新的，isolation：隔离级别
+  	-->
+  	<!-- <tx:advice id="txAdvice" transaction-manager="transactionManager">
+  		<tx:attributes>
+  			<tx:method name="transfer" propagation="REQUIRED" isolation="DEFAULT"/>
+  		</tx:attributes>
+  	</tx:advice> -->
+  	
+  	<!-- AOP切面编程，利用切入点表达式从目标类方法中，确定增强的连接器，从而获得切入点 -->
+  	<!-- <aop:config>
+  		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.fpc.ServiceImpl..*.*(..))"/>
+  	</aop:config> -->
+  	
+  	<!-- AOP基于注解的形式，将管理器交个Spring -->
+  	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+  	
   	<bean id="accountDao" class="com.fpc.DaoImpl.AccountDaoImpl">
   		<property name="dataSource" ref="dataSource"></property>
   	</bean>
   	
   	<bean id="accountService" class="com.fpc.ServiceImpl.AccountServiceImpl">
   		<property name="accounDao" ref="accountDao"></property>
-  		<property name="transactionTemplate" ref="transactionTemplate"></property>
+  		<!-- <property name="transactionTemplate" ref="transactionTemplate"></property> -->
   	</bean>
   	
   	<!-- 创建模板 -->
