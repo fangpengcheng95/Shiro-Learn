@@ -180,4 +180,22 @@
   	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
   	<property name="dataSource" ref="dataSource"></property>
   	</bean>
+  	
+  	<bean id="accountDao" class="com.fpc.DaoImpl.AccountDaoImpl">
+  		<property name="dataSource" ref="dataSource"></property>
+  	</bean>
+  	
+  	<bean id="accountService" class="com.fpc.ServiceImpl.AccountServiceImpl">
+  		<property name="accounDao" ref="accountDao"></property>
+  		<property name="transactionTemplate" ref="transactionTemplate"></property>
+  	</bean>
+  	
+  	<!-- 创建模板 -->
+  	<bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+  		<property name="transactionManager" ref="transactionManager"></property>
+  	</bean>
+    
+    <!-- 配置事物管理器，管理器需要事务，事务从Connection获得，连接从连接池获得 -->
+    <!-- transactionManager配置在上面 -->
+  	
 </beans>
